@@ -1,63 +1,79 @@
 import { useRef, useEffect } from "react";
 import { RigidBody, CapsuleCollider } from "@react-three/rapier";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
 import * as THREE from "three";
 
 const Char = () => {
-  const [subscribedKeys, getKeys] = useKeyboardControls();
+  const [_, getKeys] = useKeyboardControls();
   const body = useRef();
+  const { camera } = useThree();
+  const walkTime = useRef(0);
+  //foot step audio
+  const foot1 = useRef(new Audio("/audio/foot1.ogg"));
+  const foot2 = useRef(new Audio("/audio/foot2.ogg"));
+  const useFirstFoot = useRef(true);
+  console.log(foot1, foot2);
+
+  const velocity = 35;
 
   useFrame((state, delta) => {
     const { forward, backwards, left, right } = getKeys();
-    // console.log(forward, backwards, left, right);
 
-    const impulse = { x: 0, y: 0, z: 0 };
+    //bobbing
+    const isMoving = forward || backwards || left || right;
 
-    const impulseStrength = 35 * delta;
+    if (!body.current) return;
 
-    if (forward) impulse.z -= impulseStrength;
-    if (backwards) impulse.z += impulseStrength;
-    if (left) impulse.x -= impulseStrength;
-    if (right) impulse.x += impulseStrength;
+    const impulse = new THREE.Vector3();
+    const impulseStrength = velocity * delta;
+
+    // The camera's facing direction determines movement
+    const direction = new THREE.Vector3();
+    camera.getWorldDirection(direction);
+    direction.y = 0;
+    direction.normalize();
+
+    const rightDir = new THREE.Vector3();
+    rightDir.crossVectors(direction, new THREE.Vector3(0, 1, 0)).normalize();
+
+    if (forward) impulse.addScaledVector(direction, impulseStrength);
+    if (backwards) impulse.addScaledVector(direction, -impulseStrength);
+    if (left) impulse.addScaledVector(rightDir, -impulseStrength);
+    if (right) impulse.addScaledVector(rightDir, impulseStrength);
 
     body.current.applyImpulse(impulse);
 
-    const bodyPosition = body.current.translation();
+    // Keep camera "attached" to player
+    const pos = body.current.translation();
+    camera.position.set(pos.x, pos.y + 1.5, pos.z);
 
-    const cameraPosition = new THREE.Vector3();
-    cameraPosition.copy(bodyPosition);
-    // cameraPosition.z += 2.25;
-    // cameraPosition.y += 0.65;
+    //camera walk bobbing
+    if (isMoving) walkTime.current += delta * 10; // speed of bob
+    else walkTime.current = 0;
 
-    const cameraTarget = new THREE.Vector3();
-    cameraTarget.copy(bodyPosition);
-    // cameraTarget.y += 0.25;
-
-    state.camera.position.copy(cameraPosition);
-    state.camera.lookAt(cameraTarget);
+    const bobOffset = Math.sin(walkTime.current) * 0.05;
+    state.camera.position.set(pos.x, pos.y + 1.5 + bobOffset, pos.z);
   });
 
   return (
-    <>
-      <RigidBody
-        type='dynamic'
-        friction={0.25}
-        restitution={0}
-        linearDamping={3} // slows movement over time
-        angularDamping={10} // keeps rotation steady
-        lockRotations
-        canSleep={false}
-        ref={body}
-        position={[-5.5, 3.5, 0]}
-      >
-        <CapsuleCollider args={[0.6, 0.4]} />
-        <mesh castShadow>
-          <capsuleGeometry args={[0.4, 1]} />
-          <meshBasicMaterial />
-        </mesh>
-      </RigidBody>
-    </>
+    <RigidBody
+      ref={body}
+      type='dynamic'
+      friction={0.25}
+      restitution={0}
+      linearDamping={3}
+      angularDamping={10}
+      lockRotations
+      canSleep={false}
+      position={[0, 3.5, 0]}
+    >
+      <CapsuleCollider args={[0.6, 0.4]} />
+      <mesh visible={false}>
+        <capsuleGeometry args={[0.4, 1]} />
+        <meshStandardMaterial />
+      </mesh>
+    </RigidBody>
   );
 };
 
