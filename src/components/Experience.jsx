@@ -11,7 +11,7 @@ const Experience = () => {
       <Physics>
         <Perf position='top-left' />
         <SacredGrove />
-        <OrbitControls />
+        {/* <OrbitControls enableZoom={false} enablePan={false} /> */}
         <Char />
       </Physics>
     </>
