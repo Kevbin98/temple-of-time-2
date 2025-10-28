@@ -1,10 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, Suspense } from "react";
 import "./App.css";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import Experience from "./components/Experience";
 import { Environment, KeyboardControls } from "@react-three/drei";
 import { FirstPersonControls } from "three/examples/jsm/controls/FirstPersonControls";
 import * as THREE from "three";
+import LoadingScreen from "./Layout/LoadingScreen";
 
 function App() {
   return (
@@ -29,8 +30,10 @@ function App() {
           }}
           shadows
         >
-          <Experience />
-          <Environment files='/hdri/nightsky.exr' background={true} />
+          <Suspense fallback={<LoadingScreen />}>
+            <Experience />
+            <Environment files='/hdri/nightsky.exr' background={true} />
+          </Suspense>
         </Canvas>
       </KeyboardControls>
     </>

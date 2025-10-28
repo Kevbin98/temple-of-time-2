@@ -32,14 +32,6 @@ const TemplOfTime = () => {
     "yellow"
   );
 
-  useHelper(
-    spotLightRef,
-    SpotLightHelper,
-
-    3,
-    "yellow"
-  );
-
   useEffect(() => {
     model.scene.traverse((child) => {
       if (child.isMesh) {
@@ -83,17 +75,6 @@ const TemplOfTime = () => {
       <RigidBody type='fixed' colliders='trimesh'>
         <primitive object={model.scene} />
       </RigidBody>
-
-      <spotLight
-        ref={spotLightRef}
-        position={[0, 55, 0]} // above the ground
-        angle={Math.PI / 15} // cone width
-        intensity={1000}
-        distance={53.6}
-        penumbra={0.4} // soft edge
-        color={"#ffffff"}
-        castShadow
-      />
 
       <object3D ref={target} position={[0, 0, 0]} />
 

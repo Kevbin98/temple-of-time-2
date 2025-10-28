@@ -1,10 +1,11 @@
-import React from "react";
+import { Suspense } from "react";
 import { OrbitControls, PointerLockControls } from "@react-three/drei";
 import SacredGrove from "./SacredGrove";
 import TemplOfTime from "./TemplOfTime";
 import { Perf } from "r3f-perf";
 import Char from "../Char/Char";
 import { Physics, RigidBody } from "@react-three/rapier";
+import LoadingScreen from "../Layout/LoadingScreen";
 
 const Experience = () => {
   return (
@@ -12,10 +13,12 @@ const Experience = () => {
       <Physics gravity={[0, -30, 0]}>
         <Perf position='top-left' />
         {/* <SacredGrove /> */}
+        {/* <Suspense fallback={<LoadingScreen />}> */}
         <TemplOfTime />
+
         <PointerLockControls />
         <Char />
-
+        {/* </Suspense> */}
         {/* orbit controls for world editing */}
         {/* <OrbitControls /> */}
       </Physics>
