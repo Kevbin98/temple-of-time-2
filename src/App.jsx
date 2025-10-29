@@ -18,6 +18,8 @@ function App() {
           { name: "right", keys: ["ArrowRight", "KeyD"] },
         ]}
       >
+        <LoadingScreen />
+        {/* <Suspense fallback={<LoadingScreen />}> */}
         <Canvas
           camera={{ position: [6, 4, 2], fov: 50 }}
           gl={{
@@ -30,11 +32,12 @@ function App() {
           }}
           shadows
         >
-          <Suspense fallback={<LoadingScreen />}>
-            <Experience />
-            <Environment files='/hdri/nightsky.exr' background={true} />
-          </Suspense>
+          {/* <Suspense fallback={<LoadingScreen />}> */}
+          <Experience />
+          <Environment files='/hdri/nightsky.exr' background={true} />
+          {/* </Suspense> */}
         </Canvas>
+        {/* </Suspense> */}
       </KeyboardControls>
     </>
   );

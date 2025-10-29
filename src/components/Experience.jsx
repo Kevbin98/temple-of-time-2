@@ -11,14 +11,14 @@ const Experience = () => {
   return (
     <>
       <Physics gravity={[0, -30, 0]}>
-        <Perf position='top-left' />
+        {/* <Perf position='top-left' /> */}
         {/* <SacredGrove /> */}
-        {/* <Suspense fallback={<LoadingScreen />}> */}
+
         <TemplOfTime />
 
         <PointerLockControls />
         <Char />
-        {/* </Suspense> */}
+
         {/* orbit controls for world editing */}
         {/* <OrbitControls /> */}
       </Physics>

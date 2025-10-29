@@ -1,35 +1,49 @@
 import { motion } from "framer-motion";
+import Logo from "/textures/triforce.svg";
 
 export default function Triforce() {
-  const triangle = {
-    width: 100,
-    height: 100,
-    background:
-      "radial-gradient(circle at 50% 50%, #fff8c2 0%, #f6d77a 60%, transparent 100%)",
-    clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)",
-    position: "absolute",
-  };
-
   const container = {
     position: "relative",
-    width: 200,
-    height: 200,
+    width: 250,
+    height: 250,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   };
 
   return (
-    <div style={container}>
-      {["top", "left", "right"].map((_, i) => (
-        <motion.div
-          key={i}
-          style={{
-            ...triangle,
-            left: i === 0 ? 50 : i === 1 ? 0 : 100,
-            top: i === 0 ? 0 : 100,
-          }}
-          animate={{ opacity: [1, 0.6, 1] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        />
-      ))}
-    </div>
+    <motion.div
+      style={container}
+      animate={{ opacity: [1, 0.7, 1] }}
+      transition={{
+        duration: 2.5,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    >
+      <motion.img
+        src={Logo}
+        alt='Triforce'
+        style={{
+          width: "100%",
+          height: "100%",
+          filter: "drop-shadow(0 0 25px rgba(255, 215, 0, 0.4))",
+          userSelect: "none",
+        }}
+        animate={{
+          scale: [1, 1.01, 1],
+          filter: [
+            "drop-shadow(0 0 10px rgba(255,215,0,0.4))",
+            "drop-shadow(0 0 20px rgba(255,215,0,0.4))",
+            "drop-shadow(0 0 10px rgba(255,215,0,0.4))",
+          ],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+    </motion.div>
   );
 }

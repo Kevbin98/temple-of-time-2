@@ -5,6 +5,7 @@ import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { Physics, RigidBody } from "@react-three/rapier";
 import { PositionalAudio, Environment, useHelper } from "@react-three/drei";
 import { DirectionalLightHelper, SpotLightHelper, CameraHelper } from "three";
+import DustParticles from "./DustParticles";
 
 const TemplOfTime = () => {
   const directionalLightRef = useRef();
@@ -95,6 +96,7 @@ const TemplOfTime = () => {
         shadow-radius={2}
         shadow-bias={-0.0001}
       />
+      <DustParticles />
     </>
   );
 };
