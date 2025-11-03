@@ -23,7 +23,7 @@ function App() {
         <Canvas
           camera={{ position: [6, 4, 2], fov: 50 }}
           gl={{
-            toneMappingExposure: 0.2,
+            // toneMappingExposure: 0.5,
             antialias: true,
           }}
           onCreated={({ gl }) => {
@@ -34,7 +34,8 @@ function App() {
         >
           {/* <Suspense fallback={<LoadingScreen />}> */}
           <Experience />
-          <Environment files='/hdri/nightsky.exr' background={true} />
+          {/* <Environment files='/hdri/nightsky.exr' background={true} /> */}
+          <Environment files='/hdri/dusk2k.exr' background={true} />
           {/* </Suspense> */}
         </Canvas>
         {/* </Suspense> */}

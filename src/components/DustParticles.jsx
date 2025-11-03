@@ -48,7 +48,7 @@ const DustParticles = ({ count = 20000 }) => {
         size={0.3}
         alphaTest={0.01}
         transparent
-        opacity={0.6}
+        opacity={0.4}
         sizeAttenuation
         depthWrite={false}
         blending={THREE.AdditiveBlending}

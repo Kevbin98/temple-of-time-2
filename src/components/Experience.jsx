@@ -11,7 +11,7 @@ const Experience = () => {
   return (
     <>
       <Physics gravity={[0, -30, 0]}>
-        {/* <Perf position='top-left' /> */}
+        <Perf position='top-left' />
         {/* <SacredGrove /> */}
 
         <TemplOfTime />
