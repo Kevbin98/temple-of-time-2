@@ -1,30 +1,33 @@
 import { useRef, useEffect } from "react";
 import { useLoader, useThree } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/Addons.js";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
-import { Physics, RigidBody } from "@react-three/rapier";
-import { PositionalAudio, Environment, useHelper } from "@react-three/drei";
-import { DirectionalLightHelper, SpotLightHelper, CameraHelper } from "three";
+import { RigidBody } from "@react-three/rapier";
+import { useHelper, useGLTF } from "@react-three/drei";
+import { DirectionalLightHelper, PointLightHelper } from "three";
 import DustParticles from "./DustParticles";
 import Godray from "./Godray";
+import * as THREE from "three";
 
 const TemplOfTime = () => {
   const directionalLightRef = useRef();
-  const spotLightRef = useRef();
+  const pointLightRef = useRef();
   const target = useRef();
 
-  const model = useLoader(GLTFLoader, "/Models/templelol.glb", (loader) => {
-    const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath("/draco/"); // Path to decoder files
-    loader.setDRACOLoader(dracoLoader);
-  });
+  const model = useGLTF("/Models/templelol.glb");
 
-  console.log(model);
+  // console.log(model);
 
   // directional light helper
+  // useHelper(
+  //   directionalLightRef,
+  //   DirectionalLightHelper,
+
+  //   3,
+  //   "yellow"
+  // );
+
   useHelper(
-    directionalLightRef,
-    DirectionalLightHelper,
+    pointLightRef,
+    PointLightHelper,
 
     3,
     "yellow"
@@ -43,6 +46,10 @@ const TemplOfTime = () => {
         //   "recv:",
         //   child.receiveShadow
         // );
+        const candle = child.name.toLowerCase();
+        if (candle.includes("candle")) {
+          // console.log(child, child.position);
+        }
         model.nodes.main_hall.traverse((obj) => {
           if (obj.isMesh) {
             obj.castShadow = false;
@@ -85,7 +92,7 @@ const TemplOfTime = () => {
 
       <directionalLight
         // ref={directionalLightRef}
-        position={[60, 45, -30]} // ← optimal position
+        position={[60, 45, -50]} // ← optimal position
         intensity={1.5}
         // color='#ffb86c' // warm sunset orange
         // color='#bcd2ff'
@@ -115,20 +122,10 @@ const TemplOfTime = () => {
         position={[0, 38, -155]}
         opacity={0.5}
       />
-
-      {/* <spotLight
-        color={"#fff8e6"}
-        intensity={3.5}
-        distance={200}
-        angle={Math.PI / 7} // controls cone width
-        penumbra={0.8} // smooth edge falloff
-        decay={2} // light fades with distance
-        position={[0, 38, -155]} // start at godray origin
-        target-position={[0, 0, 0]} // where the light lands (e.g. the pedestal)
-        castShadow
-      /> */}
+      <ambientLight intensity={1} color='#433322' />
     </>
   );
 };
+useGLTF.preload("/Models/templelol.glb");
 
 export default TemplOfTime;

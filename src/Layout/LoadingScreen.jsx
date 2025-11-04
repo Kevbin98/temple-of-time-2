@@ -7,16 +7,22 @@ import Triforce from "./Triforce";
 import Border from "/textures/vintageborder.png";
 
 export default function LoadingScreen() {
-  const { progress } = useProgress();
+  const { active, progress, errors, item, loaded, total } = useProgress();
   const [showButton, setShowButton] = useState(false);
   const [fade, setFade] = useState(false);
 
+  console.log(progress, active, item, loaded, total, errors);
+
   // Show the button once loading reaches 100%
   useEffect(() => {
-    if (progress === 0) {
+    if (progress === 100) {
       setTimeout(() => setShowButton(true), 500);
     }
   }, [progress]);
+
+  // useEffect(() => {
+  //   console.log("progress:", progress);
+  // }, [progress]);
 
   // Handle button click (fade out screen)
   const handleEnter = () => {
@@ -43,7 +49,7 @@ export default function LoadingScreen() {
               textAlign: "center",
               fontFamily: '"Cinzel", serif',
               textShadow: "0 0 20px #f6d77a",
-
+              position: "fixed",
               userSelect: "none",
               height: "100vh",
               width: "100vw",

@@ -21,7 +21,8 @@ const Char = () => {
   const stepTimer = useRef(0); // separate timer
   const stepInterval = 0.4; // seconds between steps
 
-  const velocity = 35;
+  //walking speed
+  const velocity = 30;
 
   useFrame((state, delta) => {
     const { forward, backwards, left, right } = getKeys();
@@ -55,7 +56,7 @@ const Char = () => {
     else walkTime.current = 0;
 
     const bobOffset = Math.sin(walkTime.current) * 0.05;
-    camera.position.set(pos.x, pos.y + 1.5 + bobOffset, pos.z);
+    camera.position.set(pos.x, pos.y + 0.8 + bobOffset, pos.z);
 
     // --- Footstep audio logic ---
     if (isMoving) {

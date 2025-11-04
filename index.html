@@ -5,9 +5,69 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>temple of time</title>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #000;
+        overflow: hidden;
+      }
+
+      /* --- instant loader --- */
+      #preloader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #000;
+        color: #fff;
+        font-family: system-ui, sans-serif;
+        font-size: 1.2rem;
+        z-index: 99999;
+        opacity: 1;
+        transition: opacity 0.6s ease;
+      }
+
+      #preloader.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      #preloader .spinner {
+        width: 48px;
+        height: 48px;
+        border: 3px solid rgba(255, 255, 255, 0.2);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 1rem;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <div id="preloader">
+      <div class="spinner"></div>
+      <span>Loading...</span>
+    </div>
+    <script>
+      // Fallback in case React takes too long or fails to remove loader
+      window.addEventListener("load", () => {
+        const pre = document.getElementById("preloader");
+        pre?.classList.add("fade-out");
+        setTimeout(() => pre?.remove(), 600);
+      });
+    </script>
   </body>
 </html>

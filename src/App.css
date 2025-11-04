@@ -6,3 +6,6 @@
   background-color: beige;
   overflow: hidden;
 }
+canvas {
+  z-index: 0;
+}

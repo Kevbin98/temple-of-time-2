@@ -2,7 +2,12 @@ import { useEffect, useRef, Suspense } from "react";
 import "./App.css";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import Experience from "./components/Experience";
-import { Environment, KeyboardControls } from "@react-three/drei";
+import {
+  Environment,
+  KeyboardControls,
+  useProgress,
+  Loader,
+} from "@react-three/drei";
 import { FirstPersonControls } from "three/examples/jsm/controls/FirstPersonControls";
 import * as THREE from "three";
 import LoadingScreen from "./Layout/LoadingScreen";
@@ -18,8 +23,6 @@ function App() {
           { name: "right", keys: ["ArrowRight", "KeyD"] },
         ]}
       >
-        <LoadingScreen />
-        {/* <Suspense fallback={<LoadingScreen />}> */}
         <Canvas
           camera={{ position: [6, 4, 2], fov: 50 }}
           gl={{
@@ -32,13 +35,12 @@ function App() {
           }}
           shadows
         >
-          {/* <Suspense fallback={<LoadingScreen />}> */}
-          <Experience />
-          {/* <Environment files='/hdri/nightsky.exr' background={true} /> */}
-          <Environment files='/hdri/dusk2k.exr' background={true} />
-          {/* </Suspense> */}
+          <Suspense fallback={null}>
+            <Experience />
+          </Suspense>
         </Canvas>
-        {/* </Suspense> */}
+        {/* <LoadingScreen /> */}
+        {/* <Loader /> */}
       </KeyboardControls>
     </>
   );

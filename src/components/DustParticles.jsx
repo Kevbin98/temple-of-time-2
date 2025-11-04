@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { useMemo, useRef } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 
-const DustParticles = ({ count = 20000 }) => {
+const DustParticles = ({ count = 10000 }) => {
   const points = useRef();
 
   const texture = useLoader(THREE.TextureLoader, "/textures/dust.png");
