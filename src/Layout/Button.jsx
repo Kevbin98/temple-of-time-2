@@ -6,7 +6,7 @@ const Button = ({ text, onClick }) => {
 
   useEffect(() => {
     audioRef.current = new Audio("/audio/UI/UIsound.wav");
-    audioRef.current.volume = 0.4;
+    audioRef.current.volume = 0.2;
   }, []);
 
   const handleClick = () => {

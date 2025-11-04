@@ -20,6 +20,6 @@
   background-blend-mode: overlay;
   overflow: hidden;
 }
-canvas {
+/* canvas {
   z-index: 0;
-}
+} */

@@ -9,6 +9,7 @@ import TemplOfTime from "./TemplOfTime";
 import { Perf } from "r3f-perf";
 import Char from "../Char/Char";
 import { Physics, RigidBody } from "@react-three/rapier";
+import Popup from "../Layout/Popup";
 
 const Experience = () => {
   return (
@@ -17,6 +18,7 @@ const Experience = () => {
       {/* orbit controls for world editing */}
       {/* <OrbitControls /> */}
       <PointerLockControls />
+      {/* <Popup /> */}
       <Physics gravity={[0, -30, 0]}>
         {/* <SacredGrove /> */}
         <TemplOfTime />

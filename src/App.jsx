@@ -1,4 +1,4 @@
-import { useEffect, useRef, Suspense } from "react";
+import { useEffect, useRef, Suspense, useState } from "react";
 import "./App.css";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import Experience from "./components/Experience";
@@ -10,8 +10,11 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import { TriforceLoader } from "./Loaders/TriforceLoader";
+import Popup from "./Layout/Popup";
 
 function App() {
+  const [sceneLoaded, setSceneLoaded] = useState(false);
+
   return (
     <>
       <KeyboardControls
@@ -22,6 +25,7 @@ function App() {
           { name: "right", keys: ["ArrowRight", "KeyD"] },
         ]}
       >
+        {sceneLoaded && <Popup />}
         <Canvas
           // camera={{ position: [6, 4, 2], fov: 50 }}
           camera={{ position: [0, 0, 2], fov: 50 }}
@@ -44,6 +48,7 @@ function App() {
               />
             }
           >
+            <LoadDetector onLoaded={() => setSceneLoaded(true)} />
             <Experience />
           </Suspense>
           {/* <TriforceLoader
@@ -55,6 +60,12 @@ function App() {
       </KeyboardControls>
     </>
   );
+}
+function LoadDetector({ onLoaded }) {
+  useEffect(() => {
+    onLoaded();
+  }, []);
+  return null;
 }
 
 export default App;

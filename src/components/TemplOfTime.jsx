@@ -1,17 +1,21 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useLoader, useThree } from "@react-three/fiber";
 import { RigidBody } from "@react-three/rapier";
-import { useHelper, useGLTF } from "@react-three/drei";
+import { useHelper, useGLTF, Html } from "@react-three/drei";
 import { DirectionalLightHelper, PointLightHelper } from "three";
+import { motion, AnimatePresence } from "framer-motion";
 import DustParticles from "./DustParticles";
 import Godray from "./Godray";
 import * as THREE from "three";
+import Popup from "../Layout/Popup";
 
 const TemplOfTime = () => {
   const directionalLightRef = useRef();
   const pointLightRef = useRef();
   const target = useRef();
   const model = useGLTF("/Models/templelol.glb");
+  const [entered, setEntered] = useState(false);
+  const [audio, setAudio] = useState(null);
 
   useHelper(
     pointLightRef,
@@ -20,6 +24,24 @@ const TemplOfTime = () => {
     3,
     "yellow"
   );
+
+  useEffect(() => {
+    const templeAudio = new Audio("/audio/temple of time.wav");
+    templeAudio.loop = true;
+    templeAudio.volume = 0.4;
+    setAudio(templeAudio);
+  }, []);
+
+  const handleEnter = async () => {
+    if (audio) {
+      try {
+        await audio.play();
+      } catch (err) {
+        console.warn("Audio playback blocked:", err);
+      }
+    }
+    setEntered(true);
+  };
 
   useEffect(() => {
     model.scene.traverse((child) => {
