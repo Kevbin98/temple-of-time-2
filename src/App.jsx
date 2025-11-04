@@ -8,9 +8,8 @@ import {
   useProgress,
   Loader,
 } from "@react-three/drei";
-import { FirstPersonControls } from "three/examples/jsm/controls/FirstPersonControls";
 import * as THREE from "three";
-import LoadingScreen from "./Layout/LoadingScreen";
+import { TriforceLoader } from "./Loaders/TriforceLoader";
 
 function App() {
   return (
@@ -24,7 +23,8 @@ function App() {
         ]}
       >
         <Canvas
-          camera={{ position: [6, 4, 2], fov: 50 }}
+          // camera={{ position: [6, 4, 2], fov: 50 }}
+          camera={{ position: [0, 0, 2], fov: 50 }}
           gl={{
             // toneMappingExposure: 0.5,
             antialias: true,
@@ -35,12 +35,23 @@ function App() {
           }}
           shadows
         >
-          <Suspense fallback={null}>
+          <Suspense
+            fallback={
+              <TriforceLoader
+                scale={0.3}
+                rotation={[Math.PI / 2, 0, 0]}
+                position={[0, 0.3, 0]}
+              />
+            }
+          >
             <Experience />
           </Suspense>
+          {/* <TriforceLoader
+            scale={0.3}
+            rotation={[Math.PI / 2, 0, 0]}
+            position={[0, 0.3, 0]}
+          /> */}
         </Canvas>
-        {/* <LoadingScreen /> */}
-        {/* <Loader /> */}
       </KeyboardControls>
     </>
   );

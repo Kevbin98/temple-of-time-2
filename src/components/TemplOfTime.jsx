@@ -11,19 +11,7 @@ const TemplOfTime = () => {
   const directionalLightRef = useRef();
   const pointLightRef = useRef();
   const target = useRef();
-
   const model = useGLTF("/Models/templelol.glb");
-
-  // console.log(model);
-
-  // directional light helper
-  // useHelper(
-  //   directionalLightRef,
-  //   DirectionalLightHelper,
-
-  //   3,
-  //   "yellow"
-  // );
 
   useHelper(
     pointLightRef,
@@ -39,17 +27,8 @@ const TemplOfTime = () => {
         child.castShadow = true;
         child.receiveShadow = true;
         child.material.shadowSide = 2;
-        // console.log(
-        //   child.name,
-        //   "cast:",
-        //   child.castShadow,
-        //   "recv:",
-        //   child.receiveShadow
-        // );
-        const candle = child.name.toLowerCase();
-        if (candle.includes("candle")) {
-          // console.log(child, child.position);
-        }
+        child.name.toLowerCase();
+
         model.nodes.main_hall.traverse((obj) => {
           if (obj.isMesh) {
             obj.castShadow = false;
@@ -78,7 +57,7 @@ const TemplOfTime = () => {
   useEffect(() => {
     if (directionalLightRef.current) {
       directionalLightRef.current.shadow.autoUpdate = false;
-      directionalLightRef.current.shadow.needsUpdate = true; // only once
+      directionalLightRef.current.shadow.needsUpdate = true;
     }
   }, []);
 
@@ -94,8 +73,6 @@ const TemplOfTime = () => {
         // ref={directionalLightRef}
         position={[60, 45, -50]} // ← optimal position
         intensity={1.5}
-        // color='#ffb86c' // warm sunset orange
-        // color='#bcd2ff'
         color='#cdd8ff'
         castShadow
         shadow-mapSize-width={4096}
@@ -107,7 +84,6 @@ const TemplOfTime = () => {
         shadow-camera-top={120}
         shadow-camera-bottom={-120}
         shadow-radius={2}
-        // shadow-bias={-0.0001}
         shadow-bias={-0.0005}
         shadow-normalBias={0.02}
       />

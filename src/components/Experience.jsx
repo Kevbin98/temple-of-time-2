@@ -9,9 +9,6 @@ import TemplOfTime from "./TemplOfTime";
 import { Perf } from "r3f-perf";
 import Char from "../Char/Char";
 import { Physics, RigidBody } from "@react-three/rapier";
-import LoadingScreen from "../Layout/LoadingScreen";
-import Loader from "../Layout/Loader";
-import Castle from "./Castle";
 
 const Experience = () => {
   return (
@@ -23,6 +20,7 @@ const Experience = () => {
       <Physics gravity={[0, -30, 0]}>
         {/* <SacredGrove /> */}
         <TemplOfTime />
+
         <Char />
       </Physics>
       <Environment files='/hdri/dusk2k.exr' background={true} />
