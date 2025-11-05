@@ -20,7 +20,7 @@ const SacredGrove = () => {
     }
   );
 
-  // console.log(model);
+  console.log(model);
 
   // directional light helper
   useHelper(

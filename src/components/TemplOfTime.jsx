@@ -17,6 +17,8 @@ const TemplOfTime = () => {
   const [entered, setEntered] = useState(false);
   const [audio, setAudio] = useState(null);
 
+  console.log(model);
+
   useHelper(
     pointLightRef,
     PointLightHelper,
@@ -88,6 +90,27 @@ const TemplOfTime = () => {
       <RigidBody type='fixed' colliders='trimesh'>
         <primitive object={model.scene} />
       </RigidBody>
+
+      {/* meshes with no physics physics */}
+      <RigidBody type='fixed' colliders={false}>
+        <primitive object={model.nodes.pillars001} />
+        <primitive object={model.nodes.pillars006} />
+        <primitive object={model.nodes.arch} />
+        <primitive object={model.nodes.arch001} />
+        <primitive object={model.nodes.new_arch_roof001} />
+        <primitive object={model.nodes.triforce} />
+        <primitive object={model.nodes.chandelier} />
+        <primitive object={model.nodes.gothic_window_2} />
+        <primitive object={model.nodes.gothic_window_69} />
+        <primitive object={model.nodes.gothic_window_69001} />
+        <primitive object={model.nodes.master_sword001} />
+        <primitive object={model.nodes.candle} />
+        <primitive object={model.nodes.candle2} />
+        <primitive object={model.nodes.candle_3} />
+        <primitive object={model.nodes.candle_4} />
+      </RigidBody>
+
+      <RigidBody type='fixed' colliders='cuboid'></RigidBody>
 
       <object3D ref={target} position={[0, 0, 0]} />
 

@@ -86,7 +86,7 @@ const Char = () => {
       angularDamping={10}
       lockRotations
       canSleep={false}
-      position={[0, 3.5, 0]}
+      position={[0, 3.5, 45]}
     >
       <CapsuleCollider args={[0.6, 0.4]} />
       <mesh visible={false}>
